@@ -1,0 +1,14 @@
+{
+    "site_name": "Society Management System",
+    "admin_email": "admin@society.com",
+    "maintenance_fee": 2500,
+    "late_fee_percent": 2,
+    "smtp_host": "smtp.gmail.com",
+    "smtp_port": 587,
+    "smtp_user": "",
+    "smtp_pass": "",
+    "smtp_from": "noreply@society.com",
+    "max_login_attempts": 5,
+    "session_timeout": 900,
+    "two_factor": false
+}

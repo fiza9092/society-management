@@ -1,0 +1,14 @@
+.git
+.gitignore
+README.md
+docker-compose.yml
+.dockerignore
+.env
+.env.example
+.vscode/
+.idea/
+logs/*
+!logs/.gitkeep
+backups/*
+!backups/.gitkeep
+node_modules/

@@ -1,0 +1,40 @@
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+
+# Project specific
+uploads/*
+!uploads/.gitkeep
+uploads/profile_pics/*
+!uploads/profile_pics/.gitkeep
+uploads/complaints/*
+!uploads/complaints/.gitkeep
+uploads/payments/*
+!uploads/payments/.gitkeep
+
+backups/*
+!backups/.gitkeep
+
+logs/*
+!logs/.gitkeep
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+error_log
+
+# Docker
+docker-data/
