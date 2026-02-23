@@ -1,8 +1,19 @@
 <?php
 // Resident Authentication Check
+
+// Define SITE_URL if not defined (for Railway)
+if (!defined('SITE_URL')) {
+    // Auto-detect URL
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    define('SITE_URL', $protocol . $host);
+}
+
+// Check if user is logged in as resident
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'resident') {
     $_SESSION['error'] = "Please login to access your dashboard";
-    header("Location: " . SITE_URL . "/resident/login.php");
+    $login_url = SITE_URL . "/resident/login.php";
+    header("Location: $login_url");
     exit();
 }
 
@@ -11,14 +22,17 @@ $resident_id = $_SESSION['user_id'];
 $resident_name = $_SESSION['user_name'] ?? 'Resident';
 
 // Check if resident is active
-$check = $conn->query("SELECT status FROM residents WHERE id = $resident_id");
-if ($check->num_rows > 0) {
-    $resident = $check->fetch_assoc();
-    if ($resident['status'] !== 'active') {
-        session_destroy();
-        $_SESSION['error'] = "Your account has been deactivated. Please contact admin";
-        header("Location: " . SITE_URL . "/resident/login.php");
-        exit();
+if (isset($conn) && $conn) {
+    $check = $conn->query("SELECT status FROM residents WHERE id = $resident_id");
+    if ($check && $check->num_rows > 0) {
+        $resident = $check->fetch_assoc();
+        if ($resident['status'] !== 'active') {
+            session_destroy();
+            $_SESSION['error'] = "Your account has been deactivated. Please contact admin";
+            $login_url = SITE_URL . "/resident/login.php";
+            header("Location: $login_url");
+            exit();
+        }
     }
 }
 
@@ -30,7 +44,8 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
     session_unset();
     session_destroy();
     $_SESSION['error'] = "Session expired. Please login again";
-    header("Location: " . SITE_URL . "/resident/login.php");
+    $login_url = SITE_URL . "/resident/login.php";
+    header("Location: $login_url");
     exit();
 }
 ?>

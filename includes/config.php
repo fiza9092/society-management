@@ -1,4 +1,8 @@
 <?php
+
+// Include constants first
+require_once __DIR__ . '/constants.php';
+
 // Base URL - will be set by Railway
 $base_url = getenv('RAILWAY_PUBLIC_DOMAIN') ? 'https://' . getenv('RAILWAY_PUBLIC_DOMAIN') : '';
 
